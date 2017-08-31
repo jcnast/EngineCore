@@ -11,8 +11,16 @@ struct Quaternion
 	T Y;
 	T Z;
 
+	Quaternion(II i)
+		: W(i), X(0), Y(0), Z(0)
+	{}
+
 	Quaternion(T w, T x, T y, T z)
 		: W(w), X(x), Y(y), Z(z)
+	{}
+
+	Quaternion(Quaternion const& q)
+		: W(q.W), X(q.X), Y(q.Y), Z(q.Z)
 	{}
 
 	// from euler angles

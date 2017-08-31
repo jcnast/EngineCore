@@ -31,7 +31,7 @@ namespace Math
 		}
 
 		// make one that does NOT necessarily start at 0, 0
-		template<typename int C, typename int R, bool SmallerMatrix = Details::IsSmallerMatrix<A, B, C, R>>
+		template <typename int C, typename int R, bool SmallerMatrix = Details::IsSmallerMatrix<A, B, C, R>>
 		MatrixAxB<C, R> SubMatrix(C col, R row)
 		{
 			MatrixAxB<C, R> subMatrix;
@@ -39,9 +39,49 @@ namespace Math
 			{
 				for (int r = 0; r < R; r++)
 				{
-					subMatrix[c][r] = (*this)[c][r];
+					subMatrix[r][c] = (*this)[r][c];
 				}
 			}
+		}
+
+		template <typename EnableIf<IsSame<A, B>>>
+		T Determinant()
+		{
+			T determinant = 0;
+			// go down first column
+			for (int i = 0; i < B; i++)
+			{
+				List<T> subMatrixValues;
+
+				// start one column over
+				for (int c = 1; c < A; c++)
+				{
+					// go through all rows
+					for (int r = 0; r < B; r++)
+					{
+						if (r != i) // can't be in current row
+						{
+							subMatrixValues.push_back((*this)[r][c]);
+						}
+					}
+				}
+				T subMatrixDeterminant;
+				if (subMatrixValues.Count() > 1)
+				{
+					MatrixAxB<A - 1, B - 1> subMatrix(subMatrixValues);
+					subMatrixDeterminant = subMatrix.Determinant();
+				}
+				else
+				{
+					subMatrixDeterminant = subMatrixValues[0];
+				}
+
+				// calculate sub determinant
+				T determinantStep = (*this)[0][i] * (((i % 1) ? 1 : -1) * subMatrixDeterminant);
+				determinant += determinantStep;
+			}
+
+			return determinant;
 		}
 
 		Pair<Dimension> Dimensions()

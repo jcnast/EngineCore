@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="Debugging\Headers\Macros.h" />
     <ClInclude Include="Headers\CoreDefs.h" />
+    <ClInclude Include="Headers\TemplateDefs.h" />
     <ClInclude Include="Math\Headers\MathDefs.h" />
     <ClInclude Include="Math\Headers\Matrix.h" />
     <ClInclude Include="Math\Headers\Matrix3x3.h" />

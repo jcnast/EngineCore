@@ -25,9 +25,17 @@ namespace Math
 			: E1(e1), E2(e2)
 		{}
 
-		Matrix2x2(II i)
+		MatrixAxB(II i)
 			: E1(T(i), T(0)), E2(T(0), T(i))
 		{}
+
+		MatrixAxB Inverse()
+		{
+			MatrixAxB<2, 2> swappedMatrix(E2.Y, -E1.Y, -E2.X, E1.X);
+			swappedMatrix /= Determinant();
+
+			return swappedMatrix;
+		}
 
 		VectorA<T, 2>& operator[](Basis basis)
 		{

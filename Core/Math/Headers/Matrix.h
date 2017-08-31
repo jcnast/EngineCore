@@ -6,18 +6,18 @@ using namespace Core;
 
 namespace Math
 {
-	namespace Details
-	{
-		template<int A, int B, int C, int R>
-		struct IsSmallerMatrix
-		{
-			static bool const smaller = (C <= A && R <= B);
-		};
-	};
-
 	template <typename T, typename int A, typename int B>
 	struct MatrixAxB
 	{
+		namespace Details
+		{
+			template<int A, int B, int C, int R>
+			struct IsSmallerMatrix
+			{
+				static bool const smaller = (C <= A && R <= B);
+			};
+		};
+
 		// default constructor for martix (creates columns left -> right)
 		MatrixAxB(T... args)
 		{

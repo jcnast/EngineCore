@@ -10,9 +10,15 @@ namespace Core
 	template <typename T1, typename T2>
 	using IsSame = std::is_same<T1, T2>;
 
+	template <typename T1, typename ...Ts>
+	using AllSame = IsSame<T1, Ts...>;
+
 	template <typename T1, typename T2>
 	using IsBaseOf = std::is_base_of<T1, T2>;
 
 	template <typename T1, typename T2> 
-	using EqualTo = typename EnableIf<IsSame<T1, T2>::value>;
+	using EqualToValue = typename EnableIf<IsSame<T1, T2>::value>;
+
+	template <typename T1, typename T2>
+	using EqualToType = typename EnableIf<IsSame<T1, T2>::type>;
 };

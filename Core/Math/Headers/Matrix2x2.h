@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Matrix.h"
+#include "Vector2.h"
 
 namespace Math
 {
@@ -37,10 +38,12 @@ namespace Math
 			return swappedMatrix;
 		}
 
-		VectorA<T, 2>& operator[](Basis basis)
+		VectorA<T, 2>& operator[](int basis)
 		{
 			return Bases[basis];
 		}
+
+		// operators
 	};
 
 /*	TYPE DEFS	*/

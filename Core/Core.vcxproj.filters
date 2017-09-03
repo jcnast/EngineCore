@@ -66,12 +66,18 @@
     <ClInclude Include="Headers\TemplateDefs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Math\UnitTests\MatrixTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\UnitTests\VectorTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CoreUnitTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\UnitTests\MatrixTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

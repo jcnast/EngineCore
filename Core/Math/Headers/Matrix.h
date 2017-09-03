@@ -6,35 +6,47 @@ using namespace Core;
 
 namespace Math
 {
+	namespace Details
+	{
+		template<int A, int B, int C, int R>
+		struct IsSmallerMatrix
+		{
+			static bool const smaller = (C <= A && R <= B);
+		};
+	};
+
 	template <typename T, typename int A, typename int B>
 	struct MatrixAxB
 	{
-		namespace Details
-		{
-			template<int A, int B, int C, int R>
-			struct IsSmallerMatrix
-			{
-				static bool const smaller = (C <= A && R <= B);
-			};
-		};
-
 		// default constructor for martix (creates columns left -> right)
-		MatrixAxB(T... args)
+		template <typename ...Ts>
+		MatrixAxB(Ts ... args)
 		{
-			for (int c = 0; c < B; c++)
-			{
-				for (int r = 0; r < A; r++)
-				{
-					(*this)[c][r] = arg;
-				}
-			}
+			InitializeMatrixFrom(0, 0, args...);
+		}
+
+		// for the case where we get to the last col/row from the below intialize call
+		void InitializeMatrixFrom(int col, int row, T only)
+		{
+			(*this)[col][row] = first;
+		}
+
+		template <typename ...Ts>
+		void InitializeMatrixFrom(int col, int row, T first, Ts ... rest)
+		{
+			(*this)[col][row] = first;
+
+			auto nextRow = (row + 1 >= B) ? 0 : row + 1;
+			auto nextCol = (nextRow == 0) ? col + 1 : col;
+
+			InitializeMatrixFrom(nextCol, nextRow, rest...);
 		}
 
 		// make one that does NOT necessarily start at 0, 0
-		template <typename int C, typename int R, bool SmallerMatrix = Details::IsSmallerMatrix<A, B, C, R>>
-		MatrixAxB<C, R> SubMatrix(C col, R row)
+		template <int C, int R, bool SmallerMatrix = Details::IsSmallerMatrix<A, B, C, R>>
+		MatrixAxB<T, C, R> SubMatrix(int col, int row)
 		{
-			MatrixAxB<C, R> subMatrix;
+			MatrixAxB<T, C, R> subMatrix;
 			for (int c = 0; c < C; c++)
 			{
 				for (int r = 0; r < R; r++)
@@ -44,7 +56,7 @@ namespace Math
 			}
 		}
 
-		template <typename EnableIf<IsSame<A, B>>>
+		template <bool EqualDimensions = EnableIf<IsSame<A, B>>>
 		T Determinant()
 		{
 			T determinant = 0;
@@ -68,7 +80,7 @@ namespace Math
 				T subMatrixDeterminant;
 				if (subMatrixValues.Count() > 1)
 				{
-					MatrixAxB<A - 1, B - 1> subMatrix(subMatrixValues);
+					MatrixAxB<T, A - 1, B - 1> subMatrix(subMatrixValues);
 					subMatrixDeterminant = subMatrix.Determinant();
 				}
 				else
@@ -84,9 +96,9 @@ namespace Math
 			return determinant;
 		}
 
-		Pair<Dimension> Dimensions()
+		Pair<Dimension<A>, Dimension<B>> Dimensions()
 		{
-			return Pair<int>(A, B);
+			return Pair<Dimension<A>, Dimension<B>>(A, B);
 		}
 
 		// only works for SQUARE matrices
@@ -102,6 +114,15 @@ namespace Math
 				}
 			}
 		}
+
+		// Invert
+		/*
+		MatrixXxX<T, vT, V> Invert()
+		{
+			// does not seem to exist a simple inversion algorithm that works for all matrices - if needed, may need to be on a dimension basis
+			// or we can put in the super heavy generic algorithm here and have specific dimensions override it
+		}
+		*/
 
 		void SetColumn(int column, VectorA<T, A> columnVector)
 		{

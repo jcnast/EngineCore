@@ -35,9 +35,11 @@
     <ClInclude Include="Math\Headers\VectorFunctions.h" />
     <ClInclude Include="Math\Headers\Matrix2x2.h" />
     <ClInclude Include="Math\UnitTests\MathUnitTests.h" />
+    <ClInclude Include="Math\UnitTests\MatrixTests.h" />
     <ClInclude Include="Math\UnitTests\VectorTests.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Math\UnitTests\MatrixTests.cpp" />
     <ClCompile Include="Math\UnitTests\VectorTests.cpp" />
     <ClCompile Include="CoreUnitTests.cpp" />
   </ItemGroup>

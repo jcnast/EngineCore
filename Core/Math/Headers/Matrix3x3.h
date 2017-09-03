@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Matrix.h"
+#include "Vector3.h"
 
 namespace Math
 {
@@ -20,9 +21,9 @@ namespace Math
 					};
 					VectorA<T, 3> E1E2[2];
 				};
-				VectorA<T, 3> E3
+				VectorA<T, 3> E3;
 			};
-			VectorA<T, 3> Bases[3]
+			VectorA<T, 3> Bases[3];
 		};
 
 		MatrixAxB(MatrixAxB<T, 3, 3> const& m)
@@ -37,10 +38,12 @@ namespace Math
 			: E1(T(1), T(0), T(0)), E2(T(0), T(i), T(0)), E3(T(0), T(0), T(i))
 		{}
 
-		VectorA<T, 3>& operator[](Basis basis)
+		VectorA<T, 3>& operator[](int basis)
 		{
 			return Bases[basis];
 		}
+
+		// operators
 	};
 
 	/*	TYPE DEFS	*/

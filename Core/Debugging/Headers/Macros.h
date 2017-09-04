@@ -19,4 +19,8 @@ bool verifyCondition(bool condition)
 	return result;
 }
 
+#if DEBUG
 #define VERIFY( X ) verifyCondition( X )
+#else
+#define VERIFY( X ) // do nothing if not debugging
+#endif

@@ -52,7 +52,7 @@ namespace Math
 	}
 
 #if DEBUG
-	template <template <typename T, typename int A, typename int B> Matrix<T, A, B> = MatrixAxB<T, A, B>>
+	template <typename T, typename int A, typename int B>
 	String MatrixString(Matrix<T, A, B> m)
 	{
 		String matrixInfo;

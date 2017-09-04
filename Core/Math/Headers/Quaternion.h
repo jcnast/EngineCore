@@ -8,10 +8,17 @@ namespace Math
 	template <typename T>
 	struct Quaternion
 	{
-		T W;
-		T X;
-		T Y;
-		T Z;
+		union
+		{
+			struct
+			{
+				T W;
+				T X;
+				T Y;
+				T Z;
+			};
+			T quat[4];
+		};
 
 		Quaternion(II i)
 			: W(i), X(0), Y(0), Z(0)
@@ -51,37 +58,37 @@ namespace Math
 		{
 			switch (axis)
 			{
-			case Axis::X:
-			{
-				T sinX = T(2) * (W * X + Y * Z);
-				T cosX = T(1) - T(2) * (X * X + Y * Y);
-
-				return atan2(sinX, cosX);
-				break;
-			}
-			case Axis::Y:
-			{
-				T sinY = T(2) * (W * Y - X * Z);
-				if (fabs(sinY) >= T(1))
+				case X{}:
 				{
-					return copysign(T(PI_F) / T(2), sinY);
-				}
-				else
-				{
-					return asin(sinY);
-				}
-				break;
-			}
-			case Axis::Z:
-			{
-				T sinZ = T(2) * (W *Z + X * Y);
-				T cosZ = T(1) - T(2) * Y *Y + Z * Z);
-				return atan2(sinZ, cosZ);
+					T sinX = T(2) * (W * X + Y * Z);
+					T cosX = T(1) - T(2) * (X * X + Y * Y);
 
-				break;
-			}
-			default:
-				return T(0);
+					return atan2(sinX, cosX);
+					break;
+				}
+				case Y{}:
+				{
+					T sinY = T(2) * (W * Y - X * Z);
+					if (fabs(sinY) >= T(1))
+					{
+						return copysign(T(PI_F) / T(2), sinY);
+					}
+					else
+					{
+						return asin(sinY);
+					}
+					break;
+				}
+				case Z{}:
+				{
+					T sinZ = T(2) * (W *Z + X * Y);
+					T cosZ = T(1) - T(2) * Y *Y + Z * Z);
+					return atan2(sinZ, cosZ);
+
+					break;
+				}
+				default:
+					return T(0);
 			}
 		}
 
@@ -95,6 +102,12 @@ namespace Math
 
 		// operators
 
+		T operator[](int axis)
+		{
+			auto modifiedAxis = (axis + 1) % 4;
+
+			return quat[modifiedAxis];
+		}
 		// from rotation matrix
 		/*
 		Quaternion(Matrix3x3<T> m)

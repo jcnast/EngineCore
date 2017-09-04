@@ -3,6 +3,8 @@
 #include "../../Headers/CoreDefs.h"
 #include "MathDefs.h"
 
+#include "../../Debugging/Headers/Macros.h"
+
 namespace Math
 {
 	template <typename T>
@@ -101,6 +103,66 @@ namespace Math
 		}
 
 		// operators
+
+		Quaternion<T>& operator-=(Quaternion<T> const& q)
+		{
+			return (this = this - q);
+		}
+
+		Quaternion<T>& operator+=(Quaternion<T> const& q)
+		{
+			return (this = this + q);
+		}
+
+		Quaternion<T>& operator*=(Quaternion<T> const& q)
+		{
+			return (this = this * q);
+		}
+
+		Quaternion<T>& operator/=(Quaternion<T> const& q)
+		{
+			return (this = this / q);
+		}
+
+		Quaternion<T>& operator-(Quaternion<T> const& q)
+		{
+			MESSAGE(false, "Don't use this - why are you using this?");
+
+			return *this;
+		}
+
+		Quaternion<T>& operator+(Quaternion<T> const& q)
+		{
+			MESSAGE(false, "Don't use this - why are you using this?");
+
+			return *this;
+		}
+
+		Quaternion<T>& operator*(Quaternion<T> const& q)
+		{
+			// TODO
+
+			return *this;
+		}
+
+		Quaternion<T>& operator/(Quaternion<T> const& q)
+		{
+			// TODO
+
+			return *this;
+		}
+
+		Quaternion<T>& operator=(Quaternion<T> const& q)
+		{
+			// TODO
+
+			return *this;
+		}
+
+		bool operator==(Quaternion<T> const& q)
+		{
+			return (W == q.W &&  == q.X && Y == q.Y && Z == q.Z);
+		}
 
 		T operator[](int axis)
 		{

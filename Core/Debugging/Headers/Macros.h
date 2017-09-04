@@ -3,10 +3,20 @@
 #include <cstdlib>
 #include <iostream>
 #include <cassert>
+#include <string>
 
 #include "Declarations.h"
 
-bool verifyCondition(bool condition)
+void Message(std::string message)
+{
+	if (GLOBAL_EXPLICIT)
+	{
+		std::cout << message << std::endl;
+	}
+	assert(false);
+}
+
+bool VerifyCondition(bool condition, bool runAssert)
 {
 	bool result = condition;
 	
@@ -15,12 +25,21 @@ bool verifyCondition(bool condition)
 		std::cout << "X was " << (result ? "TRUE" : "FALSE") << std::endl;
 	}
 
-	assert(result);
+	if (runAssert)
+	{
+		assert(result);
+	}
 	return result;
 }
 
 #if DEBUG
-#define VERIFY( X ) verifyCondition( X )
+#define VERIFY( X ) VerifyCondition( X, true )
 #else
 #define VERIFY( X ) // do nothing if not debugging
+#endif
+
+#if DEBUG
+#define MESSAGE( X, M ) (bool condition = VERIFY( X, false ); if (!condition) { Message( M ); })
+#else
+#define MESSAGE( M ) // do nothing
 #endif

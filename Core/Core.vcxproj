@@ -29,6 +29,7 @@
     <ClInclude Include="Math\Headers\Matrix4x4.h" />
     <ClInclude Include="Math\Headers\MatrixFunctions.h" />
     <ClInclude Include="Math\Headers\Quaternion.h" />
+    <ClInclude Include="Math\Headers\QuaternionFunctions.h" />
     <ClInclude Include="Math\Headers\Utility.h" />
     <ClInclude Include="Math\Headers\Vector.h" />
     <ClInclude Include="Math\Headers\Vector2.h" />

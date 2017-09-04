@@ -102,6 +102,25 @@ namespace Math
 			return inverse;
 		}
 
+		T MagnitudeSqr()
+		{
+			auto magnitudeSqr = ((W * W) + (X * X) + (Y * Y) + (Z * Z));
+
+			return magnitudeSqr;
+		}
+
+		T Magnitude()
+		{
+			return sqrt(MagnitudeSqr());
+		}
+
+		Quaternion<T> Normalize()
+		{
+			(*this) /= Magnitude();
+
+			return (*this);
+		}
+
 		// operators
 
 		Quaternion<T>& operator-=(Quaternion<T> const& q)
@@ -140,21 +159,32 @@ namespace Math
 
 		Quaternion<T>& operator*(Quaternion<T> const& q)
 		{
-			// TODO
+			auto newW = (W * q.W) - (X * q.X) - (Y * q.Y) - (Z * q.Z);
+			auto newX = (W * q.X) + (X * q.W) + (Y * q.Z) - (Z * q.Y);
+			auto newY = (W * q.Y) - (X * q.Z) + (Y * q.X) + (Z * q.Y);
+			auto newZ = (W * q.Z) + (X * q.Y) - (Y * q.X) + (Z * q.X);
+			
+			W = newW;
+			X = newX;
+			Y = newY;
+			Z = newZ;
 
 			return *this;
 		}
 
 		Quaternion<T>& operator/(Quaternion<T> const& q)
 		{
-			// TODO
+			auto qI = q.Inverse();
 
-			return *this;
+			return ((*this) * qI);
 		}
 
 		Quaternion<T>& operator=(Quaternion<T> const& q)
 		{
-			// TODO
+			W = q.W;
+			X = q.X;
+			Y = q.Y;
+			Z = q.Z;
 
 			return *this;
 		}
@@ -170,12 +200,5 @@ namespace Math
 
 			return quat[modifiedAxis];
 		}
-		// from rotation matrix
-		/*
-		Quaternion(Matrix3x3<T> m)
-		{
-
-		}
-		*/
 	};
 };

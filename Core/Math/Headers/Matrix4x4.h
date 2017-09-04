@@ -46,6 +46,91 @@ namespace Math
 			: E1(T(i), T(0), T(0), T(0)), E2(T(0), T(i), T(0), T(0)), E3(T(0), T(0), T(i), T(0)), E4(T(0), T(0), T(0), T(i))
 		{}
 
+		// operators
+		MatrixAxB<T, 4, 4>& operator-(MatrixAxB<T, 4, 4> const& m)
+		{
+			E1 -= m.E1;
+			E2 -= m.E2;
+			E3 -= m.E3;
+			E4 -= m.E4;
+
+			return *this;
+		}
+
+		MatrixAxB<T, 4, 4>& operator+(MatrixAxB<T, 4, 4> const& m)
+		{
+			E1 += m.E1;
+			E2 += m.E2;
+			E3 += m.E3;
+			E4 += m.E4;
+
+			return *this;
+		}
+
+		MatrixAxB<T, 4, 4>& operator*(T d)
+		{
+			E1 *= d;
+			E2 *= d;
+			E3 *= d;
+			E4 *= d;
+
+			return *this;
+		}
+
+		MatrixAxB<T, 4, 4>& operator*(MatrixAxB<T, 4, 4> const& m)
+		{
+			auto T = Transpose();
+
+			E1 = VectorA<T, 4>(T.E1.Dot(m.E1), T.E1.Dot(m.E2), T.E1.Dot(m.E3), T.E1.Dot(m.E4));
+			E2 = VectorA<T, 4>(T.E2.Dot(m.E1), T.E2.Dot(m.E2), T.E2.Dot(m.E3), T.E2.Dot(m.E4));
+			E3 = VectorA<T, 4>(T.E3.Dot(m.E1), T.E3.Dot(m.E2), T.E3.Dot(m.E3), T.E3.Dot(m.E4));
+			E4 = VectorA<T, 4>(T.E4.Dot(m.E1), T.E4.Dot(m.E2), T.E4.Dot(m.E3), T.E4.Dot(m.E4));
+
+			return *this;
+		}
+
+		MatrixAxB<T, 4, 4>& operator/(T d)
+		{
+			E1 /= d;
+			E2 /= d;
+			E3 /= d;
+			E4 /= d;
+
+			return *this;
+		}
+
+		MatrixAxB<T, 4, 4>& operator/(MatrixAxB<T, 4, 4> const& m)
+		{
+			auto mI = m.Inverse();
+
+			return ((*this) * mI);
+		}
+
+		MatrixAxB<T, 4, 4>& operator=(T d)
+		{
+			E1 = VectorA<T, 4>(d);
+			E2 = VectorA<T, 4>(d);
+			E3 = VectorA<T, 4>(d);
+			E4 = VectorA<T, 4>(d);
+
+			return *this;
+		}
+
+		MatrixAxB<T, 4, 4>& operator=(MatrixAxB<T, 4, 4> const& m)
+		{
+			E1 = m.E1;
+			E2 = m.E2;
+			E3 = m.E3;
+			E4 = m.E4;
+
+			return *this;
+		}
+
+		bool operator==(MatrixAxB<T, 4, 4> const& m)
+		{
+			return (E1 == m.E1 && E2 == m.E2 && E3 == m.E3 && E4 == m.E4);
+		}
+
 		VectorA<T, 4>& operator[](int basis)
 		{
 			return Bases[basis];

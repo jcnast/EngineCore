@@ -4,8 +4,7 @@
 #include <iostream>
 #include <cassert>
 
-#define GLOBAL_EXPLICIT 0
-#define LOCAL_EXPLICIT 0
+#include "Declarations.h"
 
 bool verifyCondition(bool condition)
 {

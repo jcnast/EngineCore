@@ -38,6 +38,84 @@ namespace Math
 			: E1(T(1), T(0), T(0)), E2(T(0), T(i), T(0)), E3(T(0), T(0), T(i))
 		{}
 
+		// operators
+		MatrixAxB<T, 3, 3>& operator-(MatrixAxB<T, 3, 3> const& m)
+		{
+			E1 -= m.E1;
+			E2 -= m.E2;
+			E3 -= m.E3;
+
+			return *this;
+		}
+
+		MatrixAxB<T, 3, 3>& operator+(MatrixAxB<T, 3, 3> const& m)
+		{
+			E1 += m.E1;
+			E2 += m.E2;
+			E3 += m.E3;
+
+			return *this;
+		}
+
+		MatrixAxB<T, 3, 3>& operator*(T d)
+		{
+			E1 *= d;
+			E2 *= d;
+			E3 *= d;
+
+			return *this;
+		}
+
+		MatrixAxB<T, 3, 3>& operator*(MatrixAxB<T, 3, 3> const& m)
+		{
+			auto T = Transpose();
+
+			E1 = VectorA<T, 3>(T.E1.Dot(m.E1), T.E1.Dot(m.E2), T.E1.Dot(m.E3));
+			E2 = VectorA<T, 3>(T.E2.Dot(m.E1), T.E2.Dot(m.E2), T.E2.Dot(m.E3));
+			E3 = VectorA<T, 3>(T.E3.Dot(m.E1), T.E3.Dot(m.E2), T.E3.Dot(m.E3));
+
+			return *this;
+		}
+
+		MatrixAxB<T, 3, 3>& operator/(T d)
+		{
+			E1 /= d;
+			E2 /= d;
+			E3 /= d;
+
+			return *this;
+		}
+
+		MatrixAxB<T, 3, 3>& operator/(MatrixAxB<T, 3, 3> const& m)
+		{
+			auto mI = m.Inverse();
+
+			return ((*this) * mI);
+		}
+
+		MatrixAxB<T, 3, 3>& operator=(T d)
+		{
+			E1 = VectorA<T, 3>(d);
+			E2 = VectorA<T, 3>(d);
+			E3 = VectorA<T, 3>(d);
+
+			return *this;
+		}
+
+		MatrixAxB<T, 3, 3>& operator=(MatrixAxB<T, 3, 3> const& m)
+		{
+			E1 = m.E1;
+			E2 = m.E2;
+			E3 = m.E3;
+
+			return *this;
+		}
+
+		bool operator==(MatrixAxB<T, 3, 3> const& m)
+		{
+			return (E1 == m.E1 && E2 == m.E2 && E3 == m.E3);
+		}
+
 		VectorA<T, 3>& operator[](int basis)
 		{
 			return Bases[basis];

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Debugging\Headers\Declarations.h" />
     <ClInclude Include="Debugging\Headers\Macros.h" />
     <ClInclude Include="Headers\CoreDefs.h" />
     <ClInclude Include="Headers\TemplateDefs.h" />

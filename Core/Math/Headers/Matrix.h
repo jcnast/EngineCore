@@ -19,6 +19,14 @@ namespace Math
 	struct MatrixAxB
 	{
 		// default constructor for martix (creates columns left -> right)
+		MatrixAxB(T d)
+		{
+			for (auto c = 0; c < A; c++)
+			{
+				SetColumn(c, VectorA<T, A>(d));
+			}
+		}
+
 		template <typename ...Ts>
 		MatrixAxB(Ts ... args)
 		{

@@ -69,6 +69,9 @@
     <ClInclude Include="Math\UnitTests\MatrixTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Debugging\Headers\Declarations.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\UnitTests\VectorTests.cpp">

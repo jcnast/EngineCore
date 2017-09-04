@@ -5,6 +5,8 @@
 #include "Vector3.h"
 #include "Vector4.h"
 
+#include "../../Debugging/Headers/Declarations.h"
+
 namespace Math
 {
 	// CROSS PRODUCT
@@ -18,7 +20,7 @@ namespace Math
 		return Vector3<T>(crossX, crossY, crossZ);
 	}
 
-	template <template <typename T, typename A> Vector<T, A> = VectorA<T, A>>
+	template <template <typename T, typename int A> Vector<T, A> = VectorA<T, A>>
 	VectorA<T, A> Project(Vector<T, A> v1, Vector<T, A> v2)
 	{
 		auto projection = v2.Normalize();
@@ -28,36 +30,38 @@ namespace Math
 		return projection;
 	}
 
-	template <template <typename T, typename A> Vector<T, A> = VectorA<T, A>>
+	template <template <typename T, typename int A> Vector<T, A> = VectorA<T, A>>
 	VectorA<T, A> Perp(Vector<T, A> v1, Vector<T, A> v2)
 	{
 		return (v1 - Project(v1, v2));
 	}
 
-	template <template <typename T, typename A> Vector<T, A> = VectorA<T, A>>
+	template <template <typename T, typename int A> Vector<T, A> = VectorA<T, A>>
 	VectorA<T, A> Reject(Vector<T, A> v1, Vector<T, A> v2)
 	{
 		return Perp(v1, v2);
 	}
 
-	template <template <typename T, typename A> Vector<T, A> = VectorA<T, A>>
+	template <template <typename T, typename int A> Vector<T, A> = VectorA<T, A>>
 	VectorA<T, A> Distance(Vector<T, A> v1, Vector<T, A> v2)
 	{
 		auto distance = v1 - v2;
 		return distance;
 	}
 
-	template <template <typename T, typename A> Vector<T, A> = VectorA<T, A>>
+	template <template <typename T, typename int A> Vector<T, A> = VectorA<T, A>>
 	VectorA<T, A> Direction(Vector<T, A> v1, Vector<T, A> v2)
 	{
 		return Distance(v1, v2).Normalize();
 	}
 
-	template <template <typename T, typename A> Vector<T, A> = VectorA<T, A>>
-	String PrintVector(Vector<T, A> v)
+#if DEBUG
+	template <template <typename T, typename int A> Vector<T, A> = VectorA<T, A>>
+	String VectorString(Vector<T, A> v)
 	{
 		String vectorInfo;
 		
+		vectorInfo += "(";
 		for (auto i = 0; i < v.Dimensions(); i++)
 		{
 			vectorInfo += v[i];
@@ -67,7 +71,9 @@ namespace Math
 				vectorInfo += ", ";
 			}
 		}
+		vectorInfo += ")";
 
 		return vectorInfo;
 	}
+#endif
 };

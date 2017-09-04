@@ -10,8 +10,10 @@ namespace Core
 	template <typename T1, typename T2>
 	using IsSame = std::is_same<T1, T2>;
 
+	/* DOES NOT WORK (can we get it to?)
 	template <typename T1, typename ...Ts>
 	using AllSame = IsSame<T1, Ts...>;
+	*/
 
 	template <typename T1, typename T2>
 	using IsBaseOf = std::is_base_of<T1, T2>;

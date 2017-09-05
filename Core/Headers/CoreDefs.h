@@ -25,6 +25,8 @@ namespace Core
 	T Max(T a, T b) { return ((a > b) ? a : b); }
 	template <typename T>
 	T Clamp(T a, T min, T max) { return (Max(Min(a, max), min)); }
+	template <typename T>
+	bool Within(T d, T v, T var) { return ((d >= v - var) && (d <= v + var)); }
 	
 	using uint = unsigned int;
 };

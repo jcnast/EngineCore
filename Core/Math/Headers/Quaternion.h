@@ -96,10 +96,14 @@ namespace Math
 
 		Quaternion<T> Inverse()
 		{
-			Quaternion inverse(W, -X, -Y, -Z);
-			inverse /= ((W * W) + (X * X) + (Y * Y) + (Z * Z));
+			return (Conjugate() / Magnitude());
+		}
 
-			return inverse;
+		Quaternion<T> Conjugate()
+		{
+			Quaternion conjugate(W, -X, -Y, -Z);
+
+			return conjugate;
 		}
 
 		T MagnitudeSqr()
@@ -155,6 +159,18 @@ namespace Math
 			MESSAGE(false, "Don't use this - why are you using this?");
 
 			return *this;
+		}
+
+		Quaternion<T> operator*(Vector<T, 3> const& v)
+		{
+			auto qW = (-X * v.X) + (-Y * v.Y) + (-Z * v.Z);
+			auto qX = (W * v.X) + (Y * v.Z) + (-Z * v.Y);
+			auto qY = (W * v.Y) + (-X * v.Z) + (Z * v.X);
+			auto qZ = (W * v.Z) + (X * v.Y) + (-Y * v.X);
+
+			Quaternion<T> result(qW, qX, qY, qZ);
+
+			return result;
 		}
 
 		Quaternion<T>& operator*(Quaternion<T> const& q)

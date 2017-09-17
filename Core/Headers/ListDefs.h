@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <stdlib.h>
 #include <vector>
+#include <utility>
 
 namespace Core
 {
@@ -35,11 +36,11 @@ namespace Core
 		list.push_back(entry);
 	}
 
-	template <typename T>
-	void Push(List<T> list, T entry, T... otherEntries)
+	template <typename T, typename Ts...>
+	void Push(List<T> list, T entry, Ts... otherEntries)
 	{
 		Push(list, entry);
-		Push(list, otherEntries...);
+		Push(list, std::forward<Ts>(otherEntries)...);
 	}
 
 	template <typename T>
@@ -55,12 +56,12 @@ namespace Core
 		return Truth{ true, index };
 	}
 
-	template <typename T>
-	Truth<T> InList(List<T> list, T entry, T... otherEntries)
+	template <typename T, typename Ts...>
+	Truth<T> InList(List<T> list, T entry, Ts... otherEntries)
 	{
 		if (InList(list, entry))
 		{
-			return InList(list, otherEntries...);
+			return InList(list, std::forward<Ts>(otherEntries)...);
 		}
 
 		return Truth{ false, 0 };
@@ -78,12 +79,12 @@ namespace Core
 		return false;
 	}
 
-	template <typename T>
-	bool Remove(List<T> list, T entry, T... otherEntries)
+	template <typename T, typename Ts...>
+	bool Remove(List<T> list, T entry, Ts... otherEntries)
 	{
 		if (Remove(list, entry))
 		{
-			return Remove(list, otherEntries...);
+			return Remove(list, std::forward<Ts>(otherEntries)...);
 		}
 
 		return false;

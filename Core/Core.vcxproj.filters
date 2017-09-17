@@ -99,6 +99,12 @@
     <ClInclude Include="Headers\ListDefs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Geometric\Headers\Transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Headers\AllMath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\UnitTests\VectorTests.cpp">

@@ -25,11 +25,13 @@
     <ClInclude Include="Functionality\Headers\Event.h" />
     <ClInclude Include="Functionality\Headers\Function.h" />
     <ClInclude Include="Functionality\Headers\Scheduler.h" />
+    <ClInclude Include="Geometric\Headers\Transform.h" />
     <ClInclude Include="Headers\AllCore.h" />
     <ClInclude Include="Headers\CoreDefs.h" />
     <ClInclude Include="Headers\ListDefs.h" />
     <ClInclude Include="Headers\PtrDefs.h" />
     <ClInclude Include="Headers\TemplateDefs.h" />
+    <ClInclude Include="Math\Headers\AllMath.h" />
     <ClInclude Include="Math\Headers\MathDefs.h" />
     <ClInclude Include="Math\Headers\Matrix.h" />
     <ClInclude Include="Math\Headers\Matrix3x3.h" />

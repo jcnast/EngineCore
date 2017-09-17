@@ -15,7 +15,8 @@ namespace Math
 	template <typename T>
 	Quaternion<T> QuatFromRotationMatrix(Matrix3x3<T> const& m)
 	{
-
+		// Leaving this empty for now - not convinced this method would ever (or should ever) be used.
+		// should only really need the transformation TO matrices for shaders - the matrix itself is not as efficient otherwise
 	}
 	*/
 
@@ -44,7 +45,7 @@ namespace Math
 
 	// get rotation 4x4 matrix
 	template <typename T>
-	Matrix3x3<T> TransformationMatrixFromQuat(Quaternion<T> const& q)
+	Matrix4x4<T> TransformationMatrixFromQuat(Quaternion<T> const& q)
 	{
 		T xw = q.X * q.W;
 		T xx = q.X * q.X;

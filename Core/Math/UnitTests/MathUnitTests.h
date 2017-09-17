@@ -1,6 +1,7 @@
 #pragma once
 
 #include "VectorTests.h"
+#include "MatrixTests.h"
 
 #include "../../Debugging/Headers/Macros.h"
 
@@ -10,7 +11,9 @@ bool RunMathUnitTests()
 
 	bool vectorTests = VERIFY(Math::RunVectorTests());
 
+	bool matrixTests = VERIFY(Math::RunMatrixTests());
+
 	std::cout << "Finished unit tests..." << std::endl;
 
-	return vectorTests;
+	return (vectorTests && matrixTests);
 }

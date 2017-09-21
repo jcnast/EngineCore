@@ -51,7 +51,7 @@ namespace Math
 		}
 
 		// make one that does NOT necessarily start at 0, 0
-		template <int C, int R, bool SmallerMatrix = Details::IsSmallerMatrix<A, B, C, R>>
+		template <int C, int R, bool SmallerMatrix = EnableIf<Details::IsSmallerMatrix<A, B, C, R>>>
 		MatrixAxB<T, C, R> SubMatrix(int col, int row)
 		{
 			MatrixAxB<T, C, R> subMatrix;

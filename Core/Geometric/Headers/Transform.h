@@ -29,6 +29,27 @@ namespace Geometric
 			return trransformationMatrix;
 		}
 
+		Quaternion<T> Rotate(Quaternion<T> additionalRotation)
+		{
+			Rotation = additionalRotation * Rotation;
+
+			return Rotation;
+		}
+
+		Vector3<T> Move(Vector3<T> movement)
+		{
+			Position += movement;
+
+			return Position;
+		}
+
+		Vector3<T> Scale(Vector3<T> scaleRatio)
+		{
+			Scale *= scaleRatio;
+
+			return Scale;
+		}
+
 	public:
 		Vector3<T> Position;
 		Quaternion<T> Rotation;

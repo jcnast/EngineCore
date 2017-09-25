@@ -1,7 +1,7 @@
 # EngineCore
 Core library to be used by all components of the engine
 
-This is the continuation/improvement to https://github.com/jcnast/GameEngine
+This is the continuation/improvement to https://github.com/jcnast/GameEngine_Deprecated
 
 The plan here is to make a more dynamic, scalable, and longer lasting engine. If you wish to see a larger scope of the plan, please see
 https://github.com/jcnast/EngineCore/tree/master/Core/__Planning, in particular, the diagram image.
